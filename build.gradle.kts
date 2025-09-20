@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.run.paper)
 }
 
-group = "net.vertrauterdavid"
-version = "1.0"
+group = "me.david"
+version = "2.0"
 description = "Event Server System with tons of useful commands and features"
 
 repositories {
@@ -99,5 +99,13 @@ tasks {
         }
 
         jvmArgs = jvmArgsExternal
+    }
+}
+
+tasks.processResources {
+    filesMatching("plugin.yml") {
+        expand(
+            "version" to project.version
+        )
     }
 }
