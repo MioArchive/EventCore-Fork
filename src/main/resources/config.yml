@@ -20,7 +20,7 @@ Settings:
   DisableFallDamage: true # Disable fall damage
   DisableItemExplosions: true # Disable item explosions for End Crystal
   HostRank:
-    Enabled: true
+    Enabled: false
     Permission: "event.host" # Permission which is required to receive the host rank upon Join
     JoinCommand: "lp user %player% parent add host"
     QuitCommand: "lp user %player% parent remove host"
