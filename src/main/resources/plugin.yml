@@ -1,7 +1,7 @@
 name: EventCore
 version: ${version}
 api-version: 1.21
-main: net.vertrauterdavid.EventCore
+main: me.david.EventCore
 author: VertrauterDavid, JavaMio
 website: https://github.com/DavidArchive/EventCore
 folia-supported: true
