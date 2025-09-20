@@ -42,7 +42,7 @@ Settings:
   AutoStop1Player: true # Automatically stop the event if only one player is alive
   AllowItemDropBeforeStart: true # Allow item drop and pickup before the event starts
   DropOnPlayerCount:
-    Enabled: true
+    Enabled: false
     Count: 15
   Drop:
     BorderExtra: 3 # Blocks that are dropped in addition to the border size
@@ -91,7 +91,7 @@ Messages:
     Title: "&c%winner%" # 1st row
     SubTitle: "&7is the winner" # 2nd row
   Actionbar:
-    Enabled: true # Overrides the 'IngameTimer' setting
+    Enabled: false # Overrides the 'IngameTimer' setting
     Message: "&#559effYou are playing the best Event!" # Message that is displayed in the actionbar
   AnnoucementCommand: # %prefix% = Prefix, %message% = Message
     MessageFormat: "%prefix% %message%"
