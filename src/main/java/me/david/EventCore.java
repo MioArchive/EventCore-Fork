@@ -2,6 +2,7 @@ package me.david;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import me.david.api.EventCoreAPI;
 import me.david.command.*;
 import me.david.listener.*;
 import me.david.util.*;
@@ -26,6 +27,7 @@ public class EventCore extends JavaPlugin {
     private KitManager kitManager;
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onEnable() {
         saveDefaultConfig();
 
@@ -33,6 +35,8 @@ public class EventCore extends JavaPlugin {
         mapManager = new MapManager();
         gameManager = new GameManager();
         kitManager = new KitManager();
+
+        EventCoreAPI.initialize(instance);
 
         new AnnoucementCommand("announcement");
         new EventCommand("event");

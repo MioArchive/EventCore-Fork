@@ -20,8 +20,6 @@ public class SpawnLocationChangeEvent extends Event implements Cancellable {
     private final Location oldLocation;
 
     /**
-     * Constructor for SpawnLocationChangeEvent
-     *
      * @param player The player setting the spawn location
      * @param newLocation The new spawn location
      * @param oldLocation The old spawn location

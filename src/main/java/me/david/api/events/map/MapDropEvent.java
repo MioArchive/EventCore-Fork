@@ -18,8 +18,6 @@ public class MapDropEvent extends Event implements Cancellable {
     private final double borderSize;
 
     /**
-     * Constructor for MapDropEvent
-     *
      * @param spawnLocation The spawn location
      * @param borderSize The world border size
      */

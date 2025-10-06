@@ -16,8 +16,6 @@ public class GameStopEvent extends Event implements Cancellable {
     private String winner;
 
     /**
-     * Constructor for GameStopEvent
-     *
      * @param winner The winner's name
      */
     public GameStopEvent(final String winner) {

@@ -17,8 +17,6 @@ public class KitEnableEvent extends Event implements Cancellable {
     private final String previousKit;
 
     /**
-     * Constructor for KitEnableEvent
-     *
      * @param kitName The name of the kit being enabled
      * @param previousKit The name of the previously enabled kit
      */

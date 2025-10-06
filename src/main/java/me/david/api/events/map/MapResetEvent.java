@@ -18,9 +18,6 @@ public class MapResetEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
 
-    /**
-     * Constructor for MapResetEvent
-     */
     public MapResetEvent() {
     }
 

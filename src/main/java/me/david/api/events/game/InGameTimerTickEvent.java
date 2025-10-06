@@ -12,8 +12,6 @@ public class InGameTimerTickEvent extends Event {
     private final long elapsedSeconds;
 
     /**
-     * Constructor for InGameTimerTickEvent
-     *
      * @param elapsedSeconds The elapsed seconds since game start
      */
     public InGameTimerTickEvent(final long elapsedSeconds) {

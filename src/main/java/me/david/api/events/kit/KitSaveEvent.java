@@ -18,8 +18,6 @@ public class KitSaveEvent extends Event implements Cancellable {
     private final Player player;
 
     /**
-     * Constructor for KitSaveEvent
-     *
      * @param kitName The name of the kit being saved
      * @param player The player whose inventory is being saved
      */

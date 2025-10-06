@@ -16,8 +16,6 @@ public class GameStartEvent extends Event implements Cancellable {
     private int startTimer;
 
     /**
-     * Constructor for GameStartEvent
-     *
      * @param startTimer The countdown timer in seconds
      */
     public GameStartEvent(final int startTimer) {

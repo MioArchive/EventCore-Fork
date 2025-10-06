@@ -16,8 +16,6 @@ public class KitDeleteEvent extends Event implements Cancellable {
     private final String kitName;
 
     /**
-     * Constructor for KitDeleteEvent
-     *
      * @param kitName The name of the kit being deleted
      */
     public KitDeleteEvent(final String kitName) {

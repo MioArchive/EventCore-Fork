@@ -12,8 +12,6 @@ public class GameTimerTickEvent extends Event {
     private final int remainingSeconds;
 
     /**
-     * Constructor for GameTimerTickEvent
-     *
      * @param remainingSeconds The remaining seconds in the countdown
      */
     public GameTimerTickEvent(final int remainingSeconds) {

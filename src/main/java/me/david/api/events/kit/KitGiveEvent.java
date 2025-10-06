@@ -18,8 +18,6 @@ public class KitGiveEvent extends Event implements Cancellable {
     private final String kitName;
 
     /**
-     * Constructor for KitGiveEvent
-     *
      * @param player The player receiving the kit
      * @param kitName The name of the kit being given
      */
