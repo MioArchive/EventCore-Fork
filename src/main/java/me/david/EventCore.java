@@ -2,13 +2,12 @@ package me.david;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import me.david.api.EventCoreAPI;
 import me.david.command.*;
 import me.david.listener.*;
-import me.david.util.*;
 import me.david.manager.GameManager;
 import me.david.manager.KitManager;
 import me.david.manager.MapManager;
+import me.david.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
@@ -35,8 +34,6 @@ public class EventCore extends JavaPlugin {
         mapManager = new MapManager();
         gameManager = new GameManager();
         kitManager = new KitManager();
-
-        EventCoreAPI.initialize(instance);
 
         new AnnoucementCommand("announcement");
         new EventCommand("event");
