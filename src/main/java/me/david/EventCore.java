@@ -7,6 +7,7 @@ import me.david.listener.*;
 import me.david.manager.GameManager;
 import me.david.manager.KitManager;
 import me.david.manager.MapManager;
+import me.david.manager.TeamManager;
 import me.david.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -24,6 +25,7 @@ public class EventCore extends JavaPlugin {
     private MapManager mapManager;
     private GameManager gameManager;
     private KitManager kitManager;
+    private TeamManager teamManager;
 
     @Override
     @SuppressWarnings("deprecation")
@@ -34,6 +36,7 @@ public class EventCore extends JavaPlugin {
         mapManager = new MapManager();
         gameManager = new GameManager();
         kitManager = new KitManager();
+        teamManager = new TeamManager();
 
         new AnnoucementCommand("announcement");
         new EventCommand("event");
