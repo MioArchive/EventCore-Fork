@@ -94,9 +94,9 @@ public class KitManager {
             kits.put(kit, cacheMap);
             EventCore.getInstance().saveConfig();
 
-            player.sendMessage(MessageUtil.getPrefix() + "§aKit saved & cached!");
+            player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§aKit saved successfully!")));
         } catch (Exception e) {
-            player.sendMessage(MessageUtil.getPrefix() + "§cFailed to save kit!");
+            player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§cFailed to save kit!")));
             LOGGER.warning("[KitManager] Failed to save kit: " + kit + " :" + e.getMessage());
         }
     }

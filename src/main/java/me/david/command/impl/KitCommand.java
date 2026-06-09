@@ -48,34 +48,34 @@ public class KitCommand extends BukkitCommand {
 
             if (args[0].equalsIgnoreCase("enable")) {
                 if (!plugin.getKitManager().getKits().containsKey(kit)) {
-                    player.sendMessage(MessageUtil.getPrefix() + "§cThis kit does not exist!");
+                    player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§cThis kit does not exist!")));
                     return;
                 }
 
                 plugin.getKitManager().enable(kit);
-                player.sendMessage(MessageUtil.getPrefix() + "§a" + kit + " §7has been enabled!");
+                player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§a" + kit + " §7has been enabled!")));
                 return;
             }
 
             if (args[0].equalsIgnoreCase("save")) {
                 plugin.getKitManager().save(kit, player);
-                player.sendMessage(MessageUtil.getPrefix() + "§a" + kit + " §7has been saved!");
+                player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§a" + kit + " §7has been saved!")));
                 return;
             }
 
             if (args[0].equalsIgnoreCase("delete")) {
                 if (!plugin.getKitManager().getKits().containsKey(kit)) {
-                    player.sendMessage(MessageUtil.getPrefix() + "§cThis kit does not exist!");
+                    player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§cThis kit does not exist!")));
                     return;
                 }
 
                 if (plugin.getKitManager().getEnabledKit().equalsIgnoreCase(kit)) {
-                    player.sendMessage(MessageUtil.getPrefix() + "§cYou can't delete the enabled kit!");
+                    player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§cYou can't delete the enabled kit!")));
                     return;
                 }
 
                 plugin.getKitManager().delete(kit);
-                player.sendMessage(MessageUtil.getPrefix() + "§a" + kit + " §7has been deleted!");
+                player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.translateColorCodes("§a" + kit + " §7has been deleted!")));
                 return;
             }
         }
