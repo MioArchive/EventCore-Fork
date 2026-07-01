@@ -15,6 +15,10 @@ java {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -25,10 +29,6 @@ repositories {
 }
 
 dependencies {
-    // canvas-api is a superset of paper-api (same "bukkit" capability), so it's compiled against
-    // exclusively rather than alongside paper-api - this still gives us the full Paper API surface
-    // plus Canvas's own additions, and works fine at runtime against plain Paper too since compileOnly
-    // artifacts are never shipped.
     compileOnly(libs.canvas.api)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)

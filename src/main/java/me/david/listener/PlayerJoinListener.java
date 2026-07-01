@@ -28,7 +28,6 @@ public class PlayerJoinListener implements Listener {
             event.joinMessage(Component.empty());
         }
 
-        player.teleportAsync(EventCore.getInstance().getMapManager().getSpawnLocation());
         PlayerUtil.cleanPlayer(player);
         if (EventCore.getInstance().getGameManager().isRunning()) {
             player.getInventory().setArmorContents(null);
