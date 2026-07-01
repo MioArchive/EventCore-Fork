@@ -22,6 +22,10 @@ Settings:
   Updates:
     NotifyOnJoin: true
     LogInConsole: false
+  PlayerJoin:
+    Commands: [] # Commands executed by the console when a player joins, leave empty to disable. %player% is replaced with the player's name
+  PlayerQuit:
+    Commands: [] # Commands executed by the console when a player leaves, leave empty to disable. %player% is replaced with the player's name
   HostRank:
     Enabled: false
     Permission: "event.host" # Permission which is required to receive the host rank upon Join

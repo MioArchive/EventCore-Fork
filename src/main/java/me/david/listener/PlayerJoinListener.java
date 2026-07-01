@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.List;
 import java.util.Map;
 
 public class PlayerJoinListener implements Listener {
@@ -20,6 +21,12 @@ public class PlayerJoinListener implements Listener {
         final Player player = event.getPlayer();
 
         HostUtil.giveHost(player);
+
+        List<String> joinCommands = EventCore.getInstance().getConfig().getStringList("Settings.PlayerJoin.Commands");
+        for (String command : joinCommands) {
+            final String finalCommand = command.replace("%player%", player.getName()).substring(1);
+            FoliaScheduler.getGlobalRegionScheduler().execute(EventCore.getInstance(), () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand));
+        }
 
         if (EventCore.getInstance().getConfig().getBoolean("Messages.PlayerJoin.Enabled")) {
             Component message = MessageUtil.getPrefix().append(MessageUtil.format("Messages.PlayerJoin.Message", Map.of("%player%", Component.text(player.getName()))));
