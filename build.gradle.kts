@@ -59,14 +59,6 @@ tasks.processResources {
     }
 }
 
-tasks.shadowJar {
-    dependencies {
-        include(dependency("dev.jorel:commandapi-paper-shade"))
-    }
-
-    relocate("dev.jorel.commandapi", "me.david.libs.commandapi")
-}
-
 tasks {
     // 1.8.8 - 1.16.5 = Java 8
     // 1.17           = Java 16
@@ -80,9 +72,8 @@ tasks {
     )
 
     val sharedPlugins = runPaper.downloadPluginsSpec {
-        url("https://github.com/ViaVersion/ViaVersion/releases/download/5.9.1/ViaVersion-5.9.1.jar")
-        url("https://github.com/ViaVersion/ViaBackwards/releases/download/5.9.1/ViaBackwards-5.9.1.jar")
-        url("https://ci.athion.net/job/FastAsyncWorldEdit/1214/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.14.1-SNAPSHOT-1214.jar") // Not folia compatible
+        url("https://github.com/ViaVersion/ViaVersion/releases/download/5.10.0/ViaVersion-5.10.0.jar")
+        url("https://github.com/ViaVersion/ViaBackwards/releases/download/5.10.0/ViaBackwards-5.10.0.jar")
     }
 
     runServer {
