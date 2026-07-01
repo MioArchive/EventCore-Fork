@@ -9,7 +9,8 @@ import me.david.api.events.game.InGameTimerTickEvent;
 import me.david.util.BorderUtil;
 import me.david.util.MessageUtil;
 import me.david.util.PlayerUtil;
-import me.david.util.Scheduler;
+import me.david.util.folia.FoliaScheduler;
+import me.david.util.folia.TaskWrapper;
 import net.kyori.adventure.title.Title;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -24,10 +25,10 @@ public class GameManager {
     private boolean running = false;
     private volatile boolean timerRunning = false;
 
-    private Scheduler.TaskWrapper startTask;
-    private Scheduler.TaskWrapper autoStopTask;
-    private Scheduler.TaskWrapper autoDropTask;
-    private Scheduler.TaskWrapper timerTask;
+    private TaskWrapper startTask;
+    private TaskWrapper autoStopTask;
+    private TaskWrapper autoDropTask;
+    private TaskWrapper timerTask;
 
     private AtomicInteger timer;
     private long inGameTimer;
@@ -51,7 +52,7 @@ public class GameManager {
             return;
         }
 
-        startTask = Scheduler.timer(() -> {
+        startTask = FoliaScheduler.getGlobalRegionScheduler().runAtFixedRate(EventCore.getInstance(), o -> {
             if (!timerRunning || running) return;
 
             int current = timer.get();
@@ -107,7 +108,7 @@ public class GameManager {
                 }
 
                 EventCore.getInstance().getConfig().getStringList("Settings.Start.CustomCommands")
-                        .forEach(command -> Scheduler.dispatchCommand(
+                        .forEach(command -> FoliaScheduler.getGlobalRegionScheduler().execute(EventCore.getInstance(),
                                 () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.substring(1)))
                         );
 
@@ -124,10 +125,10 @@ public class GameManager {
         }, 0, 20);
 
         if (EventCore.getInstance().getConfig().getBoolean("Settings.AutoStop1Player")) {
-            autoStopTask = Scheduler.timer(() -> {
+            autoStopTask = FoliaScheduler.getGlobalRegionScheduler().runAtFixedRate(EventCore.getInstance(), o -> {
                 if (running && PlayerUtil.getAlive() == 1) {
                     running = false;
-                    Scheduler.runSync(() -> stop(
+                    FoliaScheduler.getGlobalRegionScheduler().execute(EventCore.getInstance(), () -> stop(
                             Bukkit.getOnlinePlayers().stream()
                                     .filter(player -> player.getGameMode() == GameMode.SURVIVAL)
                                     .findFirst()
@@ -139,7 +140,7 @@ public class GameManager {
         }
 
         if (EventCore.getInstance().getConfig().getBoolean("Settings.DropOnPlayerCount.Enabled")) {
-            autoDropTask = Scheduler.timer(() -> {
+            autoDropTask = FoliaScheduler.getGlobalRegionScheduler().runAtFixedRate(EventCore.getInstance(), o -> {
                 if (running && PlayerUtil.getAlive() <= EventCore.getInstance().getConfig().getLong("Settings.DropOnPlayerCount.Count") && !autoDropped) {
                     autoDropped = true;
                     EventCore.getInstance().getMapManager().drop();
@@ -191,7 +192,7 @@ public class GameManager {
         }
 
         EventCore.getInstance().getConfig().getStringList("Settings.Stop.CustomCommands")
-                .forEach(cmd -> Scheduler.dispatchCommand(
+                .forEach(cmd -> FoliaScheduler.getGlobalRegionScheduler().execute(EventCore.getInstance(),
                         () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.substring(1)))
                 );
 
@@ -208,7 +209,7 @@ public class GameManager {
             timerTask = null;
         }
 
-        timerTask = Scheduler.timer(() -> {
+        timerTask = FoliaScheduler.getGlobalRegionScheduler().runAtFixedRate(EventCore.getInstance(), o -> {
             inGameTimer++;
 
             Bukkit.getPluginManager().callEvent(new InGameTimerTickEvent(inGameTimer));

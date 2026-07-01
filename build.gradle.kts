@@ -21,10 +21,15 @@ repositories {
 
     maven("https://repo.papermc.io/repository/maven-public/") // PaperMC
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") // PlaceholderAPI
+    maven("https://maven.canvasmc.io/snapshots") // CanvasMC
 }
 
 dependencies {
-    compileOnly(libs.paper.api)
+    // canvas-api is a superset of paper-api (same "bukkit" capability), so it's compiled against
+    // exclusively rather than alongside paper-api - this still gives us the full Paper API surface
+    // plus Canvas's own additions, and works fine at runtime against plain Paper too since compileOnly
+    // artifacts are never shipped.
+    compileOnly(libs.canvas.api)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
     compileOnlyApi(libs.placeholderapi)
@@ -64,7 +69,7 @@ tasks {
     // 1.17           = Java 16
     // 1.18 - 1.20.4  = Java 17
     // 1-20.5+        = Java 21
-    val version = "1.21.8"
+    val version = "1.21.11"
     val javaVersion = JavaLanguageVersion.of(21)
 
     val jvmArgsExternal = listOf(

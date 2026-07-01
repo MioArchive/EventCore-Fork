@@ -1,6 +1,7 @@
 package me.david.util;
 
 import me.david.EventCore;
+import me.david.util.folia.FoliaScheduler;
 
 public class BorderUtil implements Runnable {
 
@@ -23,7 +24,6 @@ public class BorderUtil implements Runnable {
         EventCore.getInstance().saveConfig();
     }
 
-
     @Override
     public void run() {
         if (EventCore.getInstance().getGameManager().isRunning() && autoBorder) {
@@ -31,7 +31,7 @@ public class BorderUtil implements Runnable {
             int optimal = getOptimalSize();
             if (lastOptimal > optimal) {
                 lastOptimal = optimal;
-                Scheduler.runSync(() -> EventCore.getInstance().getMapManager().getSpawnLocation().getWorld().getWorldBorder().setSize(optimal, (long) (current - optimal)));
+                FoliaScheduler.getGlobalRegionScheduler().execute(EventCore.getInstance(), () -> EventCore.getInstance().getMapManager().getSpawnLocation().getWorld().getWorldBorder().changeSize(optimal, (long) (current - optimal) * 20));
             }
         }
     }

@@ -4,14 +4,14 @@ import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.david.command.impl.*;
 import me.david.listener.*;
+import me.david.listener.canvas.CanvasPlayerRespawnListener;
+import me.david.listener.canvas.CanvasPlayerTeleportListener;
 import me.david.manager.GameManager;
 import me.david.manager.KitManager;
 import me.david.manager.MapManager;
 import me.david.util.*;
-import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
-import org.bukkit.GameRule;
-import org.bukkit.World;
+import me.david.util.folia.FoliaScheduler;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
@@ -58,18 +58,24 @@ public class EventCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), instance);
         Bukkit.getPluginManager().registerEvents(new PlayerPickupItemListener(), instance);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), instance);
-        Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), instance);
-        Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), instance);
+
+        if (FoliaScheduler.isCanvas()) {
+            Bukkit.getPluginManager().registerEvents(new CanvasPlayerRespawnListener(), instance);
+            Bukkit.getPluginManager().registerEvents(new CanvasPlayerTeleportListener(), instance);
+        } else {
+            Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), instance);
+            Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), instance);
+        }
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderHook().register();
         }
 
-        Scheduler.timerAsync(new BorderUtil(), 20, 10);
-        Scheduler.timerAsync(new AutoBroadcast(), 20, 20 * getConfig().getLong("AutoBroadcast.Interval", 60));
-        Scheduler.wait(() -> {
+        FoliaScheduler.getAsyncScheduler().runAtFixedRate(instance, o -> new BorderUtil().run(), 20, 10);
+        FoliaScheduler.getAsyncScheduler().runAtFixedRate(instance, o -> new AutoBroadcast().run(), 20, 20 * getConfig().getLong("AutoBroadcast.Interval", 60));
+        FoliaScheduler.getGlobalRegionScheduler().runDelayed(instance, o -> {
             World world = mapManager.getSpawnLocation().getWorld();
-            world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+            world.setGameRule(GameRules.SHOW_ADVANCEMENT_MESSAGES, false);
             world.setDifficulty(Difficulty.PEACEFUL);
             world.getWorldBorder().setSize(BorderUtil.borderDefault);
             world.getWorldBorder().setDamageBuffer(BorderUtil.borderDamageBuffer);
@@ -77,7 +83,7 @@ public class EventCore extends JavaPlugin {
         }, 2);
 
         if (getConfig().getBoolean("Messages.Actionbar.Enabled")) {
-            Scheduler.timerAsync(() -> {
+            FoliaScheduler.getAsyncScheduler().runAtFixedRate(instance, o -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     String raw = getConfig().getString("Messages.Actionbar.Message", "&aYou are playing the best Event!");
                     String parsed = PlaceholderAPI.setPlaceholders(player, raw);
@@ -87,7 +93,7 @@ public class EventCore extends JavaPlugin {
             }, 0, 20);
         }
 
-        new Metrics(this, 28277);
+        new Metrics(instance, 28277);
     }
 
     @Override
