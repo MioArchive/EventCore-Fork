@@ -15,6 +15,7 @@
 # ---------------------------------------------------------------------------
 
 Settings:
+  Metrics: true # Enable or disable the metrics system - https://bstats.org/
   SpawnLocation: 'world/0/200/0' # Change the setting only with '/event setSpawn'
   MaxBuildHeight: 300 # Maximum build height
   DisableFallDamage: true # Disable fall damage

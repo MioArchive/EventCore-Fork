@@ -93,7 +93,9 @@ public class EventCore extends JavaPlugin {
             }, 0, 20);
         }
 
-        new Metrics(instance, 28277);
+        if (getConfig().getBoolean("Settings.Metrics")) {
+            new Metrics(instance, 28277);
+        }
     }
 
     @Override
