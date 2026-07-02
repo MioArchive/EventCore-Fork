@@ -25,7 +25,7 @@ public class MapManager {
         Location oldLocation = spawnLocation;
         Location newLocation = player.getLocation();
 
-        SpawnLocationChangeEvent spawnLocationChangeEvent = new SpawnLocationChangeEvent(player, newLocation, oldLocation);
+        final SpawnLocationChangeEvent spawnLocationChangeEvent = new SpawnLocationChangeEvent(player, newLocation, oldLocation);
         Bukkit.getPluginManager().callEvent(spawnLocationChangeEvent);
 
         if (spawnLocationChangeEvent.isCancelled()) {
@@ -43,7 +43,7 @@ public class MapManager {
         long borderExtra = EventCore.getInstance().getConfig().getLong("Settings.Drop.BorderExtra", 3);
         double borderSize = spawnLocation.getWorld().getWorldBorder().getSize();
 
-        MapDropEvent mapDropEvent = new MapDropEvent(spawnLocation, borderSize);
+        final MapDropEvent mapDropEvent = new MapDropEvent(spawnLocation, borderSize);
         Bukkit.getPluginManager().callEvent(mapDropEvent);
 
         if (mapDropEvent.isCancelled()) {
@@ -64,7 +64,7 @@ public class MapManager {
     }
 
     public void reset() {
-        MapResetEvent mapResetEvent = new MapResetEvent();
+        final MapResetEvent mapResetEvent = new MapResetEvent();
         Bukkit.getPluginManager().callEvent(mapResetEvent);
 
         if (mapResetEvent.isCancelled()) {

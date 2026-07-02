@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 import java.util.Map;
@@ -37,16 +38,16 @@ public class PlayerJoinListener implements Listener {
 
         PlayerUtil.cleanPlayer(player);
         if (EventCore.getInstance().getGameManager().isRunning()) {
-            player.getInventory().setArmorContents(null);
+            player.getInventory().setArmorContents(new ItemStack[4]);
             player.getInventory().clear();
             player.setGameMode(GameMode.SPECTATOR);
         }
-        FoliaScheduler.getGlobalRegionScheduler().runDelayed(EventCore.getInstance(), o -> {
+        FoliaScheduler.getEntityScheduler().runDelayed(player, EventCore.getInstance(), o -> {
             player.teleportAsync(EventCore.getInstance().getMapManager().getSpawnLocation());
             if (EventCore.getInstance().getGameManager().isRunning()) {
                 player.setGameMode(GameMode.SPECTATOR);
             }
-        }, 2);
+        }, null, 2);
 
         if (player.hasPermission("event.notify") && EventCore.getInstance().getConfig().getBoolean("Settings.Updates.NotifyOnJoin")) {
             UpdateChecker updateChecker = new UpdateChecker(EventCore.getInstance(), "DavidArchive", "EventCore");

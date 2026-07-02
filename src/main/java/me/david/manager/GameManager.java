@@ -44,7 +44,7 @@ public class GameManager {
 
         timer = new AtomicInteger(EventCore.getInstance().getConfig().getInt("Messages.StartTimer.Timer", 5));
 
-        GameStartEvent gameStartEvent = new GameStartEvent(timer.get());
+        final GameStartEvent gameStartEvent = new GameStartEvent(timer.get());
         Bukkit.getPluginManager().callEvent(gameStartEvent);
 
         if (gameStartEvent.isCancelled()) {
@@ -64,33 +64,21 @@ public class GameManager {
                     String color = EventCore.getInstance().getConfig().getString("Messages.StartTimer.Colors." + current + "sec");
                     String timerText = color + current + "§7";
 
-                    var replacements = Map.of(
+                    final var replacements = Map.of(
                             "%timer%", MessageUtil.translateColorCodes(timerText),
                             "%prefix%", MessageUtil.getPrefix()
                     );
 
-                    player.sendMessage(
-                            MessageUtil.getPrefix().append(
-                                    MessageUtil.format("Messages.StartTimer.Message", replacements)
-                            )
-                    );
+                    player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.format("Messages.StartTimer.Message", replacements)));
 
-                    Title title = Title.title(
-                            MessageUtil.format("Messages.StartTimer.Title", replacements),
-                            MessageUtil.format("Messages.StartTimer.SubTitle", replacements)
-                    );
+                    Title title = Title.title(MessageUtil.format("Messages.StartTimer.Title", replacements), MessageUtil.format("Messages.StartTimer.SubTitle", replacements));
                     player.showTitle(title);
 
                     player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 5, 5);
                 } else {
-                    player.sendMessage(
-                            MessageUtil.getPrefix().append(MessageUtil.get("Messages.Start.Message"))
-                    );
+                    player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.get("Messages.Start.Message")));
 
-                    Title title = Title.title(
-                            MessageUtil.get("Messages.Start.Title"),
-                            MessageUtil.get("Messages.Start.SubTitle")
-                    );
+                    Title title = Title.title(MessageUtil.get("Messages.Start.Title"), MessageUtil.get("Messages.Start.SubTitle"));
                     player.showTitle(title);
 
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 5, 5);
@@ -102,8 +90,7 @@ public class GameManager {
                     world.setDifficulty(Difficulty.HARD);
                 }
 
-                if (EventCore.getInstance().getConfig().getBoolean("Settings.IngameTimer.Enabled")
-                        && !EventCore.getInstance().getConfig().getBoolean("Messages.Actionbar.Enabled")) {
+                if (EventCore.getInstance().getConfig().getBoolean("Settings.IngameTimer.Enabled") && !EventCore.getInstance().getConfig().getBoolean("Messages.Actionbar.Enabled")) {
                     startInGameTimer();
                 }
 
@@ -150,7 +137,7 @@ public class GameManager {
     }
 
     public void stop(final String winner) {
-        GameStopEvent gameStopEvent = new GameStopEvent(winner);
+        final GameStopEvent gameStopEvent = new GameStopEvent(winner);
         Bukkit.getPluginManager().callEvent(gameStopEvent);
 
         if (gameStopEvent.isCancelled()) {
@@ -164,22 +151,15 @@ public class GameManager {
         stopInGameTimer();
         stopAllTimers();
 
-        var replacements = Map.of(
+        final var replacements = Map.of(
                 "%winner%", MessageUtil.translateColorCodes(winner),
                 "%prefix%", MessageUtil.getPrefix()
         );
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(
-                    MessageUtil.getPrefix().append(
-                            MessageUtil.format("Messages.Stop.Message", replacements)
-                    )
-            );
+            player.sendMessage(MessageUtil.getPrefix().append(MessageUtil.format("Messages.Stop.Message", replacements)));
 
-            Title title = Title.title(
-                    MessageUtil.format("Messages.Stop.Title", replacements),
-                    MessageUtil.format("Messages.Stop.SubTitle", replacements)
-            );
+            Title title = Title.title(MessageUtil.format("Messages.Stop.Title", replacements), MessageUtil.format("Messages.Stop.SubTitle", replacements));
             player.showTitle(title);
 
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 5, 5);
