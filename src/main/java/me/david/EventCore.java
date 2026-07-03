@@ -78,9 +78,10 @@ public class EventCore extends JavaPlugin {
             world.setGameRule(GameRules.SHOW_ADVANCEMENT_MESSAGES, false);
             world.setDifficulty(Difficulty.PEACEFUL);
             world.getWorldBorder().setSize(BorderUtil.borderDefault);
+            getLogger().info(String.valueOf(BorderUtil.borderDefault));
             world.getWorldBorder().setDamageBuffer(BorderUtil.borderDamageBuffer);
             world.getWorldBorder().setDamageAmount(BorderUtil.borderDamageAmount);
-        }, 2);
+        }, 40L);
 
         if (getConfig().getBoolean("Messages.Actionbar.Enabled")) {
             FoliaScheduler.getAsyncScheduler().runAtFixedRate(instance, o -> {
