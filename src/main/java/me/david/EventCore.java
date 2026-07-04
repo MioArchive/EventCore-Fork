@@ -2,6 +2,7 @@ package me.david;
 
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.david.api.EventCoreAPI;
 import me.david.command.impl.*;
 import me.david.listener.*;
 import me.david.listener.canvas.CanvasPlayerRespawnListener;
@@ -38,6 +39,7 @@ public class EventCore extends JavaPlugin {
         mapManager = new MapManager();
         gameManager = new GameManager();
         kitManager = new KitManager();
+        EventCoreAPI.initialize(instance, gameManager, kitManager, mapManager);
 
         new AnnouncementCommand(instance);
         new EventCommand(instance);
@@ -103,6 +105,7 @@ public class EventCore extends JavaPlugin {
         if (gameManager.isRunning()) {
             gameManager.stop(null);
         }
+        EventCoreAPI.shutdown();
     }
 
 }

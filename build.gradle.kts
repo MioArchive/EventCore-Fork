@@ -29,6 +29,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":api"))
     compileOnly(libs.canvas.api)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
@@ -65,6 +66,18 @@ tasks.processResources {
 }
 
 tasks {
+    jar {
+        enabled = false
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+    }
+
+    assemble {
+        dependsOn(shadowJar)
+    }
+
     // 1.8.8 - 1.16.5 = Java 8
     // 1.17           = Java 16
     // 1.18 - 1.20.4  = Java 17

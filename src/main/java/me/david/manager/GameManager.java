@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
-public class GameManager {
+public class GameManager implements me.david.api.manager.GameManager {
 
     private boolean running = false;
     private volatile boolean timerRunning = false;

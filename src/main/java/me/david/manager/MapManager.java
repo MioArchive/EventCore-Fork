@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-public class MapManager {
+public class MapManager implements me.david.api.manager.MapManager {
 
     private Location spawnLocation;
 

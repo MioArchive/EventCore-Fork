@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Getter
-public class KitManager {
+public class KitManager implements me.david.api.manager.KitManager {
 
     private final Logger LOGGER = Logger.getLogger("KitManager");
 
